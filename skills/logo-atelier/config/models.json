@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "roles": {
+    "svg": {"adapter": "host", "model": "current-agent", "output": "svg"},
+    "explore": {"adapter": "gemini", "model": "gemini-3.1-flash-image", "output": "image", "api_key_env": "GEMINI_API_KEY", "aspect_ratio": "1:1"},
+    "presentation": {"adapter": "gemini", "model": "gemini-3-pro-image", "output": "image", "api_key_env": "GEMINI_API_KEY", "aspect_ratio": "1:1"}
+  },
+  "limits": {"max_candidates": 6, "max_reference_bytes": 10485760, "timeout_seconds": 120}
+}

@@ -1,0 +1,18 @@
+await figma.loadFontAsync({family:'Noto Sans SC',style:'Regular'});
+const page=figma.currentPage;page.name='Logo Atelier · 工作台';
+const vars=await figma.variables.getLocalVariablesAsync();
+const v=n=>vars.find(x=>x.name===n);
+const paint=n=>figma.variables.setBoundVariableForPaint({type:'SOLID',color:{r:0,g:0,b:0}},'color',v(n));
+const created=[];const add=n=>(created.push(n.id),n);
+const c=add(figma.createComponent());c.name='Logo / Editable master';c.resize(1024,1024);c.x=1800;c.y=120;c.fills=[];c.clipsContent=false;
+c.description='示范母版，非客户 Logo。编辑 Foreground 矢量；Background 与 Accent 独立可拖动。实例用属性切换可见性，颜色由 Light/Dark 模式控制。';
+const bg=add(figma.createRectangle());bg.name='Background';bg.resize(1024,1024);bg.fills=[paint('color/background')];c.appendChild(bg);
+const fg=figma.createNodeFromSvg('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="#182823" d="M96 352V192a96 96 0 0 1 192 0v64h-64v-64a32 32 0 0 0-64 0v160z"/><path fill="#182823" d="M352 160v160a96 96 0 0 1-192 0v-64h64v64a32 32 0 0 0 64 0V160z"/></svg>');
+fg.name='Foreground';c.appendChild(fg);fg.resize(768,768);fg.x=128;fg.y=128;created.push(fg.id,...fg.findAll(()=>true).map(n=>n.id));
+for(const node of fg.findAllWithCriteria({types:['VECTOR']}))node.fills=[paint('color/foreground')];
+const ac=add(figma.createEllipse());ac.name='Accent';ac.resize(48,48);ac.x=780;ac.y=196;ac.fills=[paint('color/accent')];c.appendChild(ac);ac.visible=false;
+const showBg=c.addComponentProperty('Show background','BOOLEAN',true);bg.componentPropertyReferences={visible:showBg};
+const showAc=c.addComponentProperty('Show accent','BOOLEAN',false);ac.componentPropertyReferences={visible:showAc};
+const title=add(figma.createText());title.fontName={family:'Noto Sans SC',style:'Regular'};title.fontSize=32;title.characters='03 / 母版 · 1024 × 1024';title.x=1800;title.y=40;title.fills=[paint('color/foreground')];
+const note=add(figma.createText());note.fontName={family:'Noto Sans SC',style:'Regular'};note.fontSize=20;note.characters='示范几何，非客户 Logo。先改轮廓，再改材质。\n图层独立可编辑 · 背景/点缀可切换 · 颜色支持 Light / Dark';note.x=1800;note.y=1192;note.fills=[paint('color/foreground')];
+return {createdNodeIds:created,mutatedNodeIds:[page.id],master:c.id,foreground:fg.id,background:bg.id,accent:ac.id,properties:{showBg,showAc},page:page.id};

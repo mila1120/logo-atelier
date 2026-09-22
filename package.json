@@ -1,0 +1,1 @@
+{"name":"logo-atelier-tools","version":"0.1.0","private":true,"description":"Optional local raster renderer for Logo Atelier","dependencies":{"sharp":"^0.34.0"}}

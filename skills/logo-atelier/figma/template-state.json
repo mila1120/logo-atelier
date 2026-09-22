@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "file_key": null,
+  "url": null,
+  "collections": {},
+  "modes": {},
+  "semantic_variables": {},
+  "nodes": {},
+  "status": "unbound",
+  "note": "Public snapshot. Create or reuse an authorized project file and record its real IDs in project-local state. Template construction scripts are examples, not migrations."
+}

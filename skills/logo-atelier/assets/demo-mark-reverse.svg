@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Atelier demonstration mark, not a client logo</title>
+  <g id="foreground" fill="#F4F1E9">
+    <path d="M96 352V192a96 96 0 0 1 192 0v64h-64v-64a32 32 0 0 0-64 0v160z"/>
+    <path d="M352 160v160a96 96 0 0 1-192 0v-64h64v64a32 32 0 0 0 64 0V160z"/>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "name": "logo-atelier",
+  "version": "0.1.0+codex.20260922070741",
+  "description": "Research-led logo and app-icon design with modular Figma sections, controlled variants, editable SVG masters and linked mockups.",
+  "author": {
+    "name": "mila1120"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Logo Atelier",
+    "shortDescription": "用分层 Figma 工作台探索、混搭与精修可编辑 Logo。",
+    "longDescription": "Logo Atelier 将参考研究、六个设计角色展示区、独立配色与最终组合区、受控变体、SVG 母版和对应 mock 更新组织成可追溯的设计流程。",
+    "developerName": "mila1120",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Use Logo Atelier to read my uploaded document or linked brief first. Analyze core function, brand name, feeling and style, deliverables, and possible initial-letter directions. Reuse known answers and ask only meaningful open questions. Derive a few drawable creative opportunities from this product’s objects, interactions, name and letterforms, explaining the brief evidence and visual idea rather than using fixed options. Keep letter-based directions optional. Create a Figma Reference section, collect an initial 24 real app icons, offer 3-4 illustrated style directions for my choice, then collect the remainder toward 100 total in my selected style. Reuse any explicit preference. After final reference selection, extract three distinct background styles as editable SVG masters in one Background section and render-check them. Below the Background section, draw ten editable brand-color palettes with swatches and consistent previews for my selection. Use the selected palette for subsequent color exploration and logo composition. Build a visible modular workbench in my project Figma file with separate sections for Background, Shape, Expression, Supporting Motif, Material and Presentation where applicable, plus the Palette section and a Composition / Final section. Populate them with editable options. Explore 6-12 visibly distinct original directions, shortlist 2-3 using my selection or existing delegation, then create 12-18 focused variants total before selecting final combinations. Preserve unrelated properties during revisions, keep colors separate from material parameters, and track asset, composition and mock IDs so authorized changes update the corresponding mockups. Reuse existing sections and selections; targeted edits do not restart the full process."
+  }
+}

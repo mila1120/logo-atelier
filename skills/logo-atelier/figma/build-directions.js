@@ -1,0 +1,17 @@
+await figma.loadFontAsync({family:'Noto Sans SC',style:'Regular'});
+const vars=await figma.variables.getLocalVariablesAsync(),styles=await figma.getLocalTextStylesAsync();
+const v=n=>vars.find(x=>x.name===n),created=[];const add=n=>(created.push(n.id),n);
+const fill=(n,c)=>{n.fills=[figma.variables.setBoundVariableForPaint({type:'SOLID',color:{r:0,g:0,b:0}},'color',v(c))];};
+async function txt(parent,content,kind='Body'){const t=add(figma.createText());t.fontName={family:'Noto Sans SC',style:'Regular'};await t.setTextStyleIdAsync(styles.find(s=>s.name==='Atelier / '+kind).id);t.characters=content;parent.appendChild(t);t.layoutSizingHorizontal='FILL';t.textAutoResize='HEIGHT';fill(t,'color/foreground');return t;}
+const board=add(figma.createAutoLayout('VERTICAL'));board.name='02 / Directions · 意象与候选';board.x=120;board.y=1450;board.resize(1440,100);board.counterAxisSizingMode='FIXED';board.primaryAxisSizingMode='AUTO';board.paddingLeft=64;board.paddingRight=64;board.paddingTop=64;board.paddingBottom=64;board.itemSpacing=48;board.setBoundVariable('itemSpacing',v('space/lg'));fill(board,'color/canvas');
+await txt(board,'02 / 先比较意象，再比较风格。','Heading');
+await txt(board,'三个方向应该有不同的核心想法。颜色变化不算新方向。\n将参考图或草图放入下方区域，写清借鉴点与必须保留的特征。');
+const row=add(figma.createAutoLayout('HORIZONTAL'));row.name='Candidate directions';row.fills=[];row.itemSpacing=24;row.setBoundVariable('itemSpacing',v('space/md'));row.primaryAxisSizingMode='AUTO';row.counterAxisSizingMode='AUTO';board.appendChild(row);
+const slot=add(figma.createComponent());slot.name='Template / Direction card';slot.layoutMode='VERTICAL';slot.resize(421,100);slot.primaryAxisSizingMode='AUTO';slot.counterAxisSizingMode='FIXED';slot.paddingLeft=24;slot.paddingRight=24;slot.paddingTop=24;slot.paddingBottom=24;slot.itemSpacing=24;slot.setBoundVariable('itemSpacing',v('space/md'));slot.cornerRadius=16;slot.setBoundVariable('cornerRadius',v('radius/card'));fill(slot,'color/accent');slot.description='候选方向模板：标题与理由可覆盖；矢量画在独立候选画布内。';row.appendChild(slot);
+const title=await txt(slot,'A / 核心意象');const titleProp=slot.addComponentProperty('Direction','TEXT','A / 核心意象');title.componentPropertyReferences={characters:titleProp};
+const canvas=add(figma.createFrame());canvas.name='Candidate canvas · place vector here';canvas.resize(373,300);canvas.fills=[];canvas.strokes=[figma.variables.setBoundVariableForPaint({type:'SOLID',color:{r:0,g:0,b:0}},'color',v('color/muted'))];canvas.dashPattern=[6,6];slot.appendChild(canvas);
+const note=await txt(slot,'要传达 / [品牌感受]\n构形逻辑 / [意象 → 几何]\n待验证 / [小尺寸或相似性]','Label');const noteProp=slot.addComponentProperty('Rationale','TEXT',note.characters);note.componentPropertyReferences={characters:noteProp};
+for(const name of ['B / 核心意象','C / 核心意象']){const i=add(slot.createInstance());row.appendChild(i);i.setProperties({[titleProp]:name});created.push(...i.findAll(()=>true).map(n=>n.id));}
+const ref=add(figma.createAutoLayout('VERTICAL'));ref.name='References & sketch · drop here';ref.resize(1312,100);ref.counterAxisSizingMode='FIXED';ref.primaryAxisSizingMode='AUTO';ref.itemSpacing=24;ref.paddingLeft=24;ref.paddingRight=24;ref.paddingTop=24;ref.paddingBottom=24;fill(ref,'color/accent');board.appendChild(ref);
+await txt(ref,'REFERENCE / SKETCH','Label');await txt(ref,'[放入图片或草图]\n来源：____    借鉴原则：____    不复制的特征：____');
+return {createdNodeIds:created,board:board.id,directionComponent:slot.id,referenceSlot:ref.id,properties:{titleProp,noteProp}};
