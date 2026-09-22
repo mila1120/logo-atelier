@@ -12,7 +12,7 @@ Use for known-brand SVG lookup, supplemental shape studies and authorized brand 
 
 ## Integrate with Logo Atelier
 
-- Put these assets in the existing Reference Section's supplemental `Logo / 形体参考` group. Use native frame/layer names and project provenance records. They do not count toward the 100 verified app-icon screenshots.
+- Put these assets in the existing Reference Section's supplemental `Logo / 形体参考` group. Use native frame/layer names and project provenance records. Count relevant ones as brand-mark/shape references within their intention, never as verified app-icon screenshots.
 - Import actual SVG paths through the Figma workflow; keep aspect ratio and path geometry. Use a consistent comparison box, normally 64×64 when making a small standalone logo row, or match the existing board's dimensions. Optically balance occupancy without stretching.
 - Preserve each research reference's original retrieved appearance. A separate monochrome study can expose silhouette and negative space when requested or useful, but identify it as a recolored study. Brand-color references must not be silently neutralized by the standalone skill's monochrome presentation default.
 - Keep filled marks, outlines and wordmarks in coherent comparison groups without discarding a relevant reference just because it belongs to another group. Do not add shadows or gradients that misrepresent the source.

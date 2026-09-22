@@ -1,18 +1,18 @@
 {
   "name": "logo-atelier",
-  "version": "0.1.0+codex.20260922070741",
-  "description": "Research-led logo and app-icon design with modular Figma sections, controlled variants, editable SVG masters and linked mockups.",
+  "version": "0.1.0+codex.20260922132200",
+  "description": "Human-in-the-loop logo design: brief-led references, layered SVG exploration, numbered choices, comment-driven finals and linked mockups.",
   "author": {
-    "name": "mila1120"
+    "name": "Local developer"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Logo Atelier",
-    "shortDescription": "用分层 Figma 工作台探索、混搭与精修可编辑 Logo。",
-    "longDescription": "Logo Atelier 将参考研究、六个设计角色展示区、独立配色与最终组合区、受控变体、SVG 母版和对应 mock 更新组织成可追溯的设计流程。",
-    "developerName": "mila1120",
+    "shortDescription": "Agent \u53d1\u6563\u3001\u8bbe\u8ba1\u5e08\u6536\u655b\uff1a\u4ece\u9700\u6c42\u5230\u53ef\u7f16\u8f91 Logo \u4e0e mock\u3002",
+    "longDescription": "Logo Atelier 1.0 \u5c06\u9700\u6c42\u89e3\u6790\u3001\u6bcf\u610f\u8c61\u53c2\u8003\u5e93\u3001\u5206\u5c42\u9ed1\u767d\u521d\u7a3f\u3001\u51e0\u4f55\u4e0e\u8272\u6750\u53d8\u4f53\u3001\u7f16\u53f7/Comment \u9009\u62e9\u3001\u7ec8\u9009\u8fed\u4ee3\u3001mock \u540c\u6b65\u3001\u5e73\u53f0\u5bfc\u51fa\u4e0e\u79c1\u6709\u6a21\u7248\u5e93\u7ec4\u7ec7\u6210\u53ef\u8ffd\u6eaf\u7684\u8bbe\u8ba1\u6d41\u7a0b\u3002",
+    "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "Use Logo Atelier to read my uploaded document or linked brief first. Analyze core function, brand name, feeling and style, deliverables, and possible initial-letter directions. Reuse known answers and ask only meaningful open questions. Derive a few drawable creative opportunities from this product’s objects, interactions, name and letterforms, explaining the brief evidence and visual idea rather than using fixed options. Keep letter-based directions optional. Create a Figma Reference section, collect an initial 24 real app icons, offer 3-4 illustrated style directions for my choice, then collect the remainder toward 100 total in my selected style. Reuse any explicit preference. After final reference selection, extract three distinct background styles as editable SVG masters in one Background section and render-check them. Below the Background section, draw ten editable brand-color palettes with swatches and consistent previews for my selection. Use the selected palette for subsequent color exploration and logo composition. Build a visible modular workbench in my project Figma file with separate sections for Background, Shape, Expression, Supporting Motif, Material and Presentation where applicable, plus the Palette section and a Composition / Final section. Populate them with editable options. Explore 6-12 visibly distinct original directions, shortlist 2-3 using my selection or existing delegation, then create 12-18 focused variants total before selecting final combinations. Preserve unrelated properties during revisions, keep colors separate from material parameters, and track asset, composition and mock IDs so authorized changes update the corresponding mockups. Reuse existing sections and selections; targeted edits do not restart the full process."
+    "defaultPrompt": "Use Logo Atelier 1.0. Read my brief and derive 2-3 visual intentions from product function, brand meaning and feeling/style; initial-letter exploration is optional. Reuse known answers, default to an iOS App icon, and ask at most 1-3 clarification rounds without usage-location questions. In my Figma file, collect about 30 relevant references per intention; let me select 2-3 per category by stable ID or Comment. Create layered monochrome roughs, backgrounds and applicable supporting motifs: 6-12 distinct directions with 2-3 representative combinations. Shortlist 2-3, then explore about 25 geometry variants per selected intention and about 25 color/material variants per selected shape, with separate background comparisons. Preserve taste rules, source provenance, independent editable layers and locked properties. Present short numbered choices after each round; unanswered ordinary preferences may proceed provisionally after a reasonable wait, but final approval is explicit. Refine through named final sections using complete comments, targeted references and controlled mixing, and synchronize mapped mockups in the same task. Reuse my product name and crisp system icons. Once I choose the final, verify platform and export destination, deliver checked SVG/PNG assets and save the approved design into the project or designated private template library. Local revisions do not restart the whole workflow."
   }
 }

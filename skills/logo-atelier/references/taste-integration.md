@@ -22,7 +22,7 @@ Recoloring locks geometry. Removing a mouth-corner stroke locks the rest of the 
 
 ## Make variation structural and controlled
 
-Use `modular-design.md` for the visible Figma workbench and default exploration funnel: 6–12 distinct directions, shortlist 2–3, then 12–18 focused variants total. Hold one comparison axis at a time and honor requested counts or existing selections. Independent role Sections, Palette and Composition / Final make options selectable and reusable; groups inside one final icon alone are insufficient for full exploration.
+Use `modular-design.md` for the visible Figma workbench and default exploration funnel: 6–12 distinct rough directions, shortlist 2–3, then about 25 geometry variants per selected intention and about 25 color/material variants per selected shape under workflow-1.0.md. Hold one comparison axis at a time and honor requested counts or existing selections. Independent role Sections, Palette and Composition / Final make options selectable and reusable; groups inside one final icon alone are insufficient for full exploration.
 
 - For broad explorations, organize the requested count into distinct structural families. For example, 30 shapes can use six families with five developments each; choose families from the brief, not a permanent template. Vary topology, positive/negative space, direction, proportion or connection strategy. Recolors alone do not count as geometric variants.
 - Within a comparison, hold background, scale and material consistent so shape differences remain legible. Color comparisons instead hold geometry and composition fixed. Preserve the same reference perspective when perspective is a protected feature.

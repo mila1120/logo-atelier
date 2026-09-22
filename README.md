@@ -1,91 +1,76 @@
-# Logo Atelier
+# Logo Atelier 1.0
 
-**把产品想法变成可拆分、可混搭、可追溯的 Logo 与 App Icon。**
+**Agent 发散，设计师收敛；在 Figma 中把想法变成可拆分、可混搭、可追溯的 Logo。**
 
-Logo Atelier 是面向 Codex 的设计 Skill / 插件。它将需求解析、参考研究、Figma 分层探索、可编辑 SVG、配色实验与 mock 展示组织成一条设计流程，让设计师把精力放在判断与选择上。
+面向 Codex 的 Logo / App Icon 设计 Skill。Agent 读取需求、在线找参考、绘制可编辑 SVG，并把分层方案、评论迭代、mock 与导出串成完整工作流。设计师通过编号或 Figma Comment 做选择，保留 human in the loop。
 
-当前快照：**v0.1 · 2026-09-22**。流程由 Agent 配合 Figma 工具执行；仓库包含 Skill、参考规则、示范构建脚本和本地校验工具。
+本次更新：**1.0 工作流 · 2026-09-22**。这是流程版本；本地 CLI/插件包有独立版本。Skill 由 Agent 和已连接的 Figma 工具执行，不是独立 Figma 插件或已部署的图执行服务。
 
-[开始使用](#开始使用) · [功能清单](#现有功能) · [目录结构](#目录结构) · [能力边界](#当前能力边界)
+[完整流程](skills/logo-atelier/references/workflow-1.0.md) · [开始使用](#开始使用) · [能力边界](#当前能力边界)
 
-## 现有功能
+## 工作流
 
-### 01 / 解析需求，找到产品自己的小巧思
+```mermaid
+flowchart TD
+  brief[需求文档] --> functionIdea[功能意象]
+  brief --> brandIdea[品牌意象]
+  brief --> feeling[感受与风格]
+  functionIdea --> keywords[选 2–3 个意象]
+  brandIdea --> keywords
+  feeling --> keywords
+  keywords --> references[参考 · 每意象约 30 张]
+  references --> chosenRefs[每类选 2–3 张]
+  chosenRefs --> rough[分层初稿 · 6–12 方向]
+  rough --> shortlist[留选 2–3 个]
+  shortlist --> geometry[几何变体 · 每意象约 25 款]
+  geometry --> shapeChoice[选形体]
+  shapeChoice --> color[颜色与材质]
+  shapeChoice --> background[背景变体]
+  color --> combination[选组合]
+  background --> combination
+  shapeChoice -. 已有配色 .-> combination
+  combination --> finalVersion[终选方案]
+  finalVersion --> verify[视觉校验]
+  finalVersion --> mock[Mock 同步]
+  verify --> decision{用户定稿}
+  mock --> decision
+  verify -. 未通过 .-> revise[定向修改]
+  decision -. 修改 .-> comments[编号 / Comment]
+  comments --> revise
+  comments -. 需要时 .-> extraRef[补参考]
+  extraRef --> revise
+  revise --> finalVersion
+  decision --> export[导出 SVG / PNG]
+  export --> library[模版库]
+```
 
-读取上传的需求文档、文档链接或口述 brief，提炼产品功能与品牌调性。已知信息直接整理，缺失信息再问，围绕五个方向展开：
+通常 **6 个主要设计决策点**，不是固定 11 次提问。需求澄清最多 1–3 轮；终选根据反馈继续。普通偏好暂未回复时，Agent 会在合理等待后说明暂选并推进；最终定稿仍以用户明确选择为准。
 
-| 解析方向 | 产出 |
-| --- | --- |
-| 核心功能 | 产品解决什么问题，哪些物件、动作或反馈值得转成图形 |
-| 品牌名字 | 准确名字与可视化意象，区分原始含义和设计联想 |
-| 感受与风格 | 希望传达的感受，以及形状、线条、颜色和材质如何实现它 |
-| 交付内容 | 根据项目确定标志、App 图标、字标、配色、母版、mock 或导出资产 |
-| 首字母延展 | 从实际名字的字形、缩写与负形中寻找构形机会，可选择不使用字母 |
+| 步骤 | Agent 的产出 | 设计师的选择 |
+| --- | --- | --- |
+| 01 解析需求 | 从核心功能、名字含义、感受与风格推导可画的意象；可选首字母延展 | 2–3 个核心意象 |
+| 02 找 Reference | 每个意象约 30 张参考，独立 Figma Section、来源与编号 | 每类 2–3 张，编号或 Comment |
+| 03 分层初稿 | 主体黑白几何、背景、中景；6–12 个方向、2–3 个代表组合 | 保留 2–3 个方向 |
+| 04 几何变体 | 按需补形态参考，每个选中意象约 25 个变体 | 选形体、表情与结构 |
+| 05 色彩与材质 | 每个选中形体约 25 个色材方案，背景单独对照 | 选组合或跨方案混搭 |
+| 06 终选方案1 | 根据评论整合形体、色材与背景 | 选择或 Comment |
+| 07 终选方案2 | 继续广泛探索时每个候选约 25 款，局部修改保持局部 | 选择或 Comment |
+| 08 终选方案3 | 定向参考、修改、视觉验收、同步设备 mock | 检查真实小尺寸效果 |
+| 09 终选方案4+ | 反馈 → 参考 → 修改 → 验证 → mock 的迭代回路 | 明确最终方案 |
+| 10 导出 | 确认平台及打包位置，按平台规范交付 SVG / PNG 等 | 确认未明确的交付项 |
+| 11 模版库 | 归档 final 的分层资产、预览、色材与来源版本 | 复用到后续项目 |
 
-创意选项从需求生成，每项说明 **产品特点 → 如何画出来 → 传达什么感受**。例如键盘产品可以聚焦单个按键、改变键位的表现方法，或让按键带上表情；这些是方法示例，不是所有项目都套用的元素。
+任何终选轮已满意都可以直接定稿，不必强制做满四轮。局部请求直接进入对应步骤，既有选择无需重答。默认按 iOS App 图标探索，不询问使用位置，不继承文档平台的品牌色。
 
-### 02 / 参考与草图，先看清方向
+## 保留的设计能力
 
-- 接收设计师提供的截图、参考链接与 sketch，在 Figma 中建立独立 Reference Section。
-- 按品类研究真实 App 图标，结合 Logosystem、Pinterest、小红书、App Store 和官方奖项来源；访问受限时记录实际缺口。
-- 默认先整理 **24 个真实图标**，归纳 **3–4 个有图例的风格方向**；选定方向后，定向补充到总计 **100 个**。数量与是否跳过可按用户要求调整。
-- 支持设计师直接在 Figma 删选、移动参考；继续时读取最新选择，不恢复用户已经删除的内容。
-- 提炼可借鉴的轮廓、负形、构图、色彩和材质原则，保存来源，不整枚复制参考商标。
-
-### 03 / 在 Figma 中建立可混搭的设计工作台
-
-把适用的设计角色分别放进可见的 Section，展示可编辑选项；不适用的角色不强加。
-
-| Section | 用来比较什么 |
-| --- | --- |
-| Background / 背景 | 底形、圆角、空间层次与背景效果 |
-| Shape / 主体形态 | 主图标轮廓、字母、物件与负形 |
-| Expression / 表情 | 眼睛、嘴、情绪和人格表达 |
-| Supporting Motif / 辅助图形 | 键盘等承托、辅助或功能元素 |
-| Material / 材质 | 平面、渐变、玻璃、浅浮雕、立体等处理 |
-| Presentation / 展示 | 设备 mock 与使用场景 |
-
-另设 **Palette / 配色** 与 **Composition / Final / 组合与最终方案**。设计师可以直接指定“用 A 的背景、B 的形态和 C 的表情”，由 Agent 组合并检查比例与层级。
-
-原生图层支持手动拖动、重排和改色；“交换前后景”会区分交换颜色与交换图层角色。
-
-### 04 / 先找偏好，再展开变体
-
-**6–12 个差异明显的方向 → 保留 2–3 个 → 展开共 12–18 个精细变体 → 最终组合。**
-
-- 初轮比较构形思路，不把换颜色计作新造型。
-- 精修轮按比例、表情、配色或材质等维度逐项比较，避免同时改动所有东西。
-- 可以按需求增加方案，也可以先快速比较两款。
-- 已有明确选择时直接继续，局部修改不重新跑整套流程。
-
-### 05 / 独立配色与材质实验
-
-- 从选定参考提炼三种有区别的背景风格，并制作可编辑 SVG 母版。
-- 绘制 **10 组品牌色板**，用原生色块与一致的预览供选择。
-- 将颜色与材质参数分开：可以只替换键盘颜色，同时保留渐变位置、方向、透明度、描边和阴影。
-- 支持深浅配色、黑白版本和局部颜色对比；材质深度随 brief 调整。
-
-### 06 / 精修几何与视觉关系
-
-围绕选定方向检查比例、光学居中、曲线、圆角、留白、透视、遮挡和明暗分界。主体、表情、辅助图形分别编辑；修改前读取当前 Figma 内容，保留无关属性和设计师的手动改动。
-
-矢量母版与位图材质探索分开管理。位图参考需要重新构建几何后才可作为可编辑矢量，不能仅改后缀冒充 SVG。
-
-### 07 / 最终方案与 mock 对应更新
-
-- 记录原方案、组合和 mock 图标槽位的节点映射。
-- 在已授权范围内，每轮源图标修改后更新对应 mock，并检查实际显示。
-- 保留手机布局与其他内容；需要时同步指定 Section 的最终方案。
-- 新建资产适合时使用组件实例；已有矢量可通过 Agent 在本轮任务中同步。
-
-**这是任务内联动，不是后台实时监听。** 默认保留范围外的对比稿；用户要求“只保留当前方案”时才清理对应多余 mock。
-
-### 08 / 验收、交付与复用
-
-- 检查真实 SVG 结构与导出结果，渲染 16 / 24 / 32 / 64 / 128 / 1024 px 诊断图。
-- 在实际小尺寸、浅底和深底检查识别度、边缘、对比和裁切。
-- 根据约定交付可编辑母版、变体、PNG、Figma 图层与 mock；诊断尺寸不等同于完整平台上架资源。
-- 项目保存 brief、来源、母版版本、节点映射和验收记录。通用方法可以沉淀回 Skill，客户的具体偏好留在项目内。
+- **Taste 与 icon 库**：保留原有审美、风格技法、原创几何与小尺寸检查规则；研究覆盖 Logosystem、Pinterest、App Store 榜单、官方来源及用户参考。真实 App、品牌标志、概念稿分别记录。
+- **分层工作台**：Background、Shape、Expression、Supporting Motif、Material、Presentation 六个适用角色分别展示，另设 Palette 与 Composition。可以指定“用 A 的背景、B 的形体、C 的表情”。
+- **受控变体**：改色保留几何、渐变和透明度；改表情保留承载形态；各轮锁定已认可属性。色彩已明确时可缩减色板探索。
+- **评论迭代**：读取完整评论与回复，定位源图标及 mock，逐条记录改动、验证和未解决项。按需读取新增反馈，不伪称后台监听。
+- **Mock 联动**：源图标修订后在当前任务内更新映射的槽位；沿用设备和布局、使用产品名、保留少量清晰系统组件。
+- **SVG 与验收**：原生可编辑矢量母版、PNG 实际渲染、大小尺寸检查、几何与对比验证。位图不能改后缀冒充 SVG。
+- **模板沉淀**：final 存入项目或指定私有库，保留锚点、色材、版本和预览；客户文件与评论不自动公开。
 
 ## 开始使用
 
@@ -104,7 +89,7 @@ Logo Atelier 是面向 Codex 的设计 Skill / 插件。它将需求解析、参
 
 ### 一个完整任务
 
-> 使用 Logo Atelier。这是我的需求文档：[链接或附件]，这是项目 Figma：[链接]。先解析功能、品牌调性和可视化巧思，确认交付范围；建立参考区和分层工作台，先探索 6–12 个方向，我选 2–3 个后继续精修，最后更新对应 mock 并检查小尺寸效果。
+> 使用 Logo Atelier。这是我的需求文档：[链接或附件]，这是项目 Figma：[链接]。先提炼 2–3 个视觉意象，在 Figma 按意象搜参考，再出分层黑白初稿。我可以选编号或留 Comment；选定形体后展开颜色材质，逐轮更新终选与 mock，最后导出并入库。
 
 ### 也可以只改一部分
 
@@ -147,7 +132,7 @@ skills/logo-atelier/
   tests/                       本地工具测试
 ```
 
-关键文档：[需求解析](skills/logo-atelier/references/parse.md) · [参考研究](skills/logo-atelier/references/reference-board.md) · [分层设计](skills/logo-atelier/references/modular-design.md) · [配色](skills/logo-atelier/references/palette-board.md) · [视觉验收](skills/logo-atelier/references/review.md)。
+关键文档：[完整 1.0 流程](skills/logo-atelier/references/workflow-1.0.md) · [评论迭代](skills/logo-atelier/references/comment-driven-iteration.md) · [需求解析](skills/logo-atelier/references/parse.md) · [参考研究](skills/logo-atelier/references/reference-board.md) · [分层设计](skills/logo-atelier/references/modular-design.md) · [配色](skills/logo-atelier/references/palette-board.md) · [视觉验收](skills/logo-atelier/references/review.md)。
 
 `figma/build-*.js` 是早期示范模板的构建记录，不是幂等脚本或一键安装器；在真实项目里由 Agent 按当前 Skill 建立工作台。公开快照不附带个人 Figma 文件、节点映射或客户项目。
 

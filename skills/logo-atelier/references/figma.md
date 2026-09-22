@@ -14,10 +14,10 @@ Track source-to-composition-to-mock IDs per `modular-design.md`. Refresh mapped 
 
 Shared-template scripts are construction records, not idempotent migration scripts. Never rerun them against a project. Every real project retains its own node ledger, baseline exports and review history.
 
-For inspiration collection before concept construction, follow `reference-board.md`. Create or reuse an actual dedicated Reference Section first, then import and verify an initial 24 icons, offer 3-4 evidence-backed style directions for confirmation, and collect the remainder toward 100 total in the selected style. Reuse existing research and explicit preferences. Preserve initial exploration separately from style matches; final selection follows completion. Use stable reference IDs in native layer titles, keep sources in project records, and retain user-added images and annotations; the shared template reference slot is not a live project destination.
+For the stage order and counts, read `workflow-1.0.md`. Create or reuse a Reference Section, collect about 30 verified references per intention across suitable styles and sources, and let the user pick 2–3 per category. Reference kinds remain distinct. Reuse existing research and selections; keep sources in project records.
 
-After final reference selection, follow the three-background-style stage in `reference-board.md`: create or reuse one Background Section containing three named style groups, each with an editable SVG master. Keep foreground marks out, names in native titles, and source anchors in project records. Render-check the imported results before foreground construction. Preserve existing background assets and user layout; this default does not authorize reorganizing historical Sections.
-
-After background extraction, follow `palette-board.md`: draw ten editable brand-color combinations in a Palette Section below the Background Section. Use native color swatches and consistent previews, then let the user choose before batch color application. Preserve existing palette edits and explicit selections.
+Build rough geometry, background and applicable supporting motif independently, then combine representative previews. Color/material exploration follows geometry selection; use `palette-board.md` for about 25 variants per selected shape and separate background comparisons. There is no mandatory three-background or ten-palette pre-stage.
 
 Presentation default: concept and asset boards contain artwork only. Put short names/numbers in native frame/section/layer titles, not text nodes. No explanatory text pages. Keep rationale and validation in local project records; retain user reference annotations.
+
+For comment-based revisions, follow `comment-driven-iteration.md`: read actual threads through a supported connector or the Figma UI, map pins to source/mock nodes, preserve versions and verify each feedback item. Do not infer comment contents from design metadata.
