@@ -1,6 +1,6 @@
 # Logo Atelier 1.0
 
-**让设计探索更充分，让每一次选择更有依据。**
+**帮助设计师做决策，让Agent来替你实现。**
 
 Logo Atelier 是面向设计师的 Logo 与 App Icon 设计 Skill，将 Agent 的探索能力与 Figma 的可编辑工作台结合。从需求理解、参考研究到方案精修与交付，Agent 负责展开设计可能性，设计师始终掌握方向与最终决策。
 
