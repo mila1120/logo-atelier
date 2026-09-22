@@ -1,156 +1,97 @@
 # Logo Atelier 1.0
 
-**Agent 发散，设计师收敛；在 Figma 中把想法变成可拆分、可混搭、可追溯的 Logo。**
+**你来选方向，AI 把想法画出来。**
 
-面向 Codex 的 Logo / App Icon 设计 Skill。Agent 读取需求、在线找参考、绘制可编辑 SVG，并把分层方案、评论迭代、mock 与导出串成完整工作流。设计师通过编号或 Figma Comment 做选择，保留 human in the loop。
+Logo Atelier 是一个配合 Codex 和 Figma 使用的 Logo 设计 Skill。给它一份产品需求，它会帮你找参考、画方案、试配色、修改细节，再把选中的设计放进手机样机里。你可以随时通过方案编号或 Figma 评论提出修改，最终由你决定用哪一版。
 
-本次更新：**1.0 工作流 · 2026-09-22**。这是流程版本；本地 CLI/插件包有独立版本。Skill 由 Agent 和已连接的 Figma 工具执行，不是独立 Figma 插件或已部署的图执行服务。
+## 它能帮你做什么？
 
-[完整流程](skills/logo-atelier/references/workflow-1.0.md) · [开始使用](#开始使用) · [能力边界](#当前能力边界)
+### 从产品里找到设计灵感
 
-## 工作流
+读取需求文档，理解产品功能、品牌名字和你想传达的感觉，提炼 2–3 个视觉方向。比如键盘产品可以从一个按键、键盘结构或表情入手；品牌名字也可以成为图形或首字母设计的灵感。
 
-```mermaid
-flowchart TD
-  brief[需求文档] --> functionIdea[功能意象]
-  brief --> brandIdea[品牌意象]
-  brief --> feeling[感受与风格]
-  functionIdea --> keywords[选 2–3 个意象]
-  brandIdea --> keywords
-  feeling --> keywords
-  keywords --> references[参考 · 每意象约 30 张]
-  references --> chosenRefs[每类选 2–3 张]
-  chosenRefs --> rough[分层初稿 · 6–12 方向]
-  rough --> shortlist[留选 2–3 个]
-  shortlist --> geometry[几何变体 · 每意象约 25 款]
-  geometry --> shapeChoice[选形体]
-  shapeChoice --> color[颜色与材质]
-  shapeChoice --> background[背景变体]
-  color --> combination[选组合]
-  background --> combination
-  shapeChoice -. 已有配色 .-> combination
-  combination --> finalVersion[终选方案]
-  finalVersion --> verify[视觉校验]
-  finalVersion --> mock[Mock 同步]
-  verify --> decision{用户定稿}
-  mock --> decision
-  verify -. 未通过 .-> revise[定向修改]
-  decision -. 修改 .-> comments[编号 / Comment]
-  comments --> revise
-  comments -. 需要时 .-> extraRef[补参考]
-  extraRef --> revise
-  revise --> finalVersion
-  decision --> export[导出 SVG / PNG]
-  export --> library[模版库]
-```
+### 找参考，再出方案
 
-通常 **6 个主要设计决策点**，不是固定 11 次提问。需求澄清最多 1–3 轮；终选根据反馈继续。普通偏好暂未回复时，Agent 会在合理等待后说明暂选并推进；最终定稿仍以用户明确选择为准。
+从 App Store、Pinterest、Logosystem 等可访问来源寻找参考，按方向整理到 Figma 中。每个方向约 30 张，你只需挑出喜欢的 2–3 张，也可以提供自己的截图或草图。
 
-| 步骤 | Agent 的产出 | 设计师的选择 |
-| --- | --- | --- |
-| 01 解析需求 | 从核心功能、名字含义、感受与风格推导可画的意象；可选首字母延展 | 2–3 个核心意象 |
-| 02 找 Reference | 每个意象约 30 张参考，独立 Figma Section、来源与编号 | 每类 2–3 张，编号或 Comment |
-| 03 分层初稿 | 主体黑白几何、背景、中景；6–12 个方向、2–3 个代表组合 | 保留 2–3 个方向 |
-| 04 几何变体 | 按需补形态参考，每个选中意象约 25 个变体 | 选形体、表情与结构 |
-| 05 色彩与材质 | 每个选中形体约 25 个色材方案，背景单独对照 | 选组合或跨方案混搭 |
-| 06 终选方案1 | 根据评论整合形体、色材与背景 | 选择或 Comment |
-| 07 终选方案2 | 继续广泛探索时每个候选约 25 款，局部修改保持局部 | 选择或 Comment |
-| 08 终选方案3 | 定向参考、修改、视觉验收、同步设备 mock | 检查真实小尺寸效果 |
-| 09 终选方案4+ | 反馈 → 参考 → 修改 → 验证 → mock 的迭代回路 | 明确最终方案 |
-| 10 导出 | 确认平台及打包位置，按平台规范交付 SVG / PNG 等 | 确认未明确的交付项 |
-| 11 模版库 | 归档 final 的分层资产、预览、色材与来源版本 | 复用到后续项目 |
+先看 6–12 个差异明显的初稿，留下 2–3 个方向，再围绕选中的方向细化。几何探索通常每个方向约 25 款，配色与材质探索通常每个选中形体约 25 款；已有明确偏好时可以直接精修。
 
-任何终选轮已满意都可以直接定稿，不必强制做满四轮。局部请求直接进入对应步骤，既有选择无需重答。默认按 iOS App 图标探索，不询问使用位置，不继承文档平台的品牌色。
+### 把喜欢的部分混搭起来
 
-## 保留的设计能力
+主体、表情、背景、辅助图形、颜色和材质分别展示，方便比较与组合。你可以直接说：
 
-- **Taste 与 icon 库**：保留原有审美、风格技法、原创几何与小尺寸检查规则；研究覆盖 Logosystem、Pinterest、App Store 榜单、官方来源及用户参考。真实 App、品牌标志、概念稿分别记录。
-- **分层工作台**：Background、Shape、Expression、Supporting Motif、Material、Presentation 六个适用角色分别展示，另设 Palette 与 Composition。可以指定“用 A 的背景、B 的形体、C 的表情”。
-- **受控变体**：改色保留几何、渐变和透明度；改表情保留承载形态；各轮锁定已认可属性。色彩已明确时可缩减色板探索。
-- **评论迭代**：读取完整评论与回复，定位源图标及 mock，逐条记录改动、验证和未解决项。按需读取新增反馈，不伪称后台监听。
-- **Mock 联动**：源图标修订后在当前任务内更新映射的槽位；沿用设备和布局、使用产品名、保留少量清晰系统组件。
-- **SVG 与验收**：原生可编辑矢量母版、PNG 实际渲染、大小尺寸检查、几何与对比验证。位图不能改后缀冒充 SVG。
-- **模板沉淀**：final 存入项目或指定私有库，保留锚点、色材、版本和预览；客户文件与评论不自动公开。
+> 用 A 的背景、B 的形状和 C 的表情，再试几种蓝色。
+
+也可以只改一个部分，例如换键盘颜色，同时保留原来的渐变、透明度和形状。
+
+### 选编号，或直接留评论
+
+每个方案都有编号。告诉它“选 03，表情换成 07”，或在 Figma 方案旁留下 Comment，它会读取评论与回复，逐条修改，并保留之前的版本供比较。
+
+每轮先出方案，再集中让你选择。普通偏好暂未回复时，它会说明自己的暂选并继续；最终定稿仍由你确认。局部修改可以直接开始，不用重新走完整流程。
+
+### 放进手机里，看真实效果
+
+选中的图标会放入设备样机，与少量系统图标一起比较，名称使用你的产品名。后续修改源图标时，会在同一轮任务中更新对应样机，并检查小尺寸下的比例、居中和辨识度。
+
+### 导出成品，积累自己的模版库
+
+设计保留为可编辑矢量。定稿后，按目标平台和交付要求导出 SVG、PNG 等文件，也可以打包到桌面。最终方案连同分层、配色和材质存入项目或你指定的私有模版库，方便以后继续使用。
+
+## 一次设计怎么进行？
+
+**读需求 → 选参考 → 选形体 → 试颜色与材质 → 评论精修与样机预览 → 定稿导出**
+
+通常有约 6 个主要选择点。需要时继续迭代，满意时即可定稿。配色已确定可以跳过探索；只想改某个图标，也可以从那里开始。
+
+[查看完整工作流程](skills/logo-atelier/references/workflow-1.0.md)
 
 ## 开始使用
 
-### 环境
+1. 在 Codex 中安装或加载 Logo Atelier。
+2. 连接具备编辑能力的 Figma 工具，准备一个可编辑的 Figma 项目链接。
+3. 提供需求文档、参考图或一段产品介绍，然后告诉它：
 
-- 可加载 Skill 的 Codex 环境。
-- 需要写入 Figma 时，连接具备编辑能力的 Figma 工具并提供可编辑的项目链接。仓库本身不提供 Figma 连接服务。
-- Python 3 用于本地项目初始化、SVG 校验与模型适配器；Node.js + `sharp` 用于可选的 PNG 渲染。
-- 不需要图像模型即可进行 SVG 设计。可选 Gemini 位图探索需要自行配置凭据，当前仓库未包含密钥。
+> 使用 Logo Atelier。这是我的产品需求：[链接或附件]，这是 Figma：[链接]。先帮我找几个设计方向，我会通过编号或评论选择，再继续细化。
 
-### 加载 Skill
+如果你已有设计，也可以这样开始：
 
-克隆仓库后，将 `skills/logo-atelier` 放入本机的 Codex skills 目录，例如 `~/.codex/skills/logo-atelier`，然后在新任务中调用。已有同名 Skill 时先保留自己的改动，再决定合并或替换。
+> 读取这个 Section 里的评论，在下方新建一轮方案，并更新选中款的手机样机。
 
-仓库也包含 `.codex-plugin/plugin.json`，可作为本地 Codex 插件源使用；它不是独立的 Figma 插件安装包。
+> 保留这个图标的形状和透明度，试几版深灰、黑色和蓝色。
 
-### 一个完整任务
+<details>
+<summary>手动安装与本地工具</summary>
 
-> 使用 Logo Atelier。这是我的需求文档：[链接或附件]，这是项目 Figma：[链接]。先提炼 2–3 个视觉意象，在 Figma 按意象搜参考，再出分层黑白初稿。我可以选编号或留 Comment；选定形体后展开颜色材质，逐轮更新终选与 mock，最后导出并入库。
+克隆仓库，将 `skills/logo-atelier` 文件夹放入 `~/.codex/skills/`，然后在新任务中使用。已有同名 Skill 时先保留自己的改动。仓库也可作为本地 Codex 插件源使用。
 
-### 也可以只改一部分
-
-> 保留这几个图标的几何、渐变和透明度，只把键盘换成深灰、黑色与蓝色，在下方新增比较。
-
-> 用 A 的背景、B 的气泡和 C 的表情组合；调整光学居中，然后更新这个最终方案对应的 mock。
-
-> 只解析文档，给我几种有依据的小巧思，暂时不要画图。
-
-### 本地工具
-
-在仓库根目录运行：
+SVG 设计不要求配置图像模型。可选本地校验需要 Python 3；PNG 渲染需要 Node.js 和 `sharp`。在仓库根目录运行：
 
 ```sh
 python3 skills/logo-atelier/scripts/atelier.py doctor
-python3 skills/logo-atelier/scripts/atelier.py init ./my-project --name '品牌名'
 python3 skills/logo-atelier/scripts/atelier.py validate skills/logo-atelier/assets/demo-mark.svg
-
-# 可选：安装本地渲染依赖，输出目录应为新目录
 npm install
 node skills/logo-atelier/scripts/render.cjs skills/logo-atelier/assets/demo-mark.svg ./proof-demo
-
-# 单元测试使用模拟响应，不发送付费图像请求
-python3 -m unittest discover -s skills/logo-atelier/tests
 ```
 
-模型配置位于 [`config/models.json`](skills/logo-atelier/config/models.json)。生成默认 dry-run；真实请求需设置 `GEMINI_API_KEY` 并显式使用 `--execute`，可能产生提供商费用。详见 [模型接口](skills/logo-atelier/references/models.md)。
+渲染输出目录应为新目录。可选图像模型的配置与费用说明见[模型接口](skills/logo-atelier/references/models.md)。
 
-## 目录结构
+</details>
 
-```text
-.codex-plugin/plugin.json       Codex 插件入口
-skills/logo-atelier/
-  SKILL.md                     主工作流
-  references/                  解析、调研、配色、分层、Figma 与验收规则
-  scripts/                     项目初始化、SVG 校验、渲染与模型接口
-  figma/                       示例构建记录与项目状态入口
-  assets/                      示例矢量母版
-  config/                      模型与 token 配置
-  tests/                       本地工具测试
-```
+## 使用前了解
 
-关键文档：[完整 1.0 流程](skills/logo-atelier/references/workflow-1.0.md) · [评论迭代](skills/logo-atelier/references/comment-driven-iteration.md) · [需求解析](skills/logo-atelier/references/parse.md) · [参考研究](skills/logo-atelier/references/reference-board.md) · [分层设计](skills/logo-atelier/references/modular-design.md) · [配色](skills/logo-atelier/references/palette-board.md) · [视觉验收](skills/logo-atelier/references/review.md)。
+- 这是由 Codex 执行的 Skill，需要可用的 Figma 连接；不提供独立 Figma 侧栏。
+- 评论在任务执行时读取，样机在任务内更新，不会在后台持续监听。
+- 在线找参考取决于来源是否可访问；参考作品保留来源，不作为原创设计直接复制。
+- 保留已有审美规则、图标风格库和几何检查方法；不提供商标可注册性判断。
+- 客户文档、评论和设计文件不会自动发布到公开仓库。
 
-`figma/build-*.js` 是早期示范模板的构建记录，不是幂等脚本或一键安装器；在真实项目里由 Agent 按当前 Skill 建立工作台。公开快照不附带个人 Figma 文件、节点映射或客户项目。
+## 更多资料
 
-## 当前能力边界
+[Skill 入口](skills/logo-atelier/SKILL.md) · [完整流程](skills/logo-atelier/references/workflow-1.0.md) · [参考研究](skills/logo-atelier/references/reference-board.md) · [分层混搭](skills/logo-atelier/references/modular-design.md) · [评论迭代](skills/logo-atelier/references/comment-driven-iteration.md)
 
-| 能力 | 当前状态 |
-| --- | --- |
-| 需求解析、分层探索、变体与 mock 工作流 | 已写入 Skill，由 Agent 与可用工具执行 |
-| SVG 校验、项目初始化、本地渲染 | 已提供脚本与测试 |
-| Gemini 位图接口 | 已实现适配器与 dry-run；真实凭据下的连通性仍待验证 |
-| Figma 独立侧栏、拖拽混搭界面 | 未提供；使用 Figma 原生图层与 Agent 操作 |
-| 跨应用后台实时双向同步 | 未提供 |
-| Pinterest / 小红书自动采集 API | 未提供；调研取决于可访问来源与工具 |
-| 自动商标查重、商标可注册性判断 | 未提供 |
-| 设备模拟器或完整上架资源验收 | 未提供 |
+## 来源与许可
 
-## 来源与许可说明
+部分设计方法参考了 Taste Skill 与 Company Logos：[Taste 说明](skills/logo-atelier/references/taste-integration.md)、[Taste MIT 许可](skills/logo-atelier/references/taste-license.txt)、[Company Logos MIT 许可](skills/logo-atelier/references/company-logos-license.txt)。第三方 App 图标归各自权利人所有，不随仓库分发。
 
-部分设计方法参考了 Taste Skill 与 Company Logos，相关来源及许可随仓库保留：[Taste 说明](skills/logo-atelier/references/taste-integration.md)、[Taste MIT 许可](skills/logo-atelier/references/taste-license.txt)、[Company Logos MIT 许可](skills/logo-atelier/references/company-logos-license.txt)。第三方 App 图标用于项目研究时仍归各自权利人所有，不随此仓库分发。
-
-本快照尚未为其余原创内容指定统一开源许可证；公开可见不代表额外授予商业使用或再分发许可。
+其余原创内容暂未指定统一开源许可证；公开可见不代表额外授予商业使用或再分发许可。
